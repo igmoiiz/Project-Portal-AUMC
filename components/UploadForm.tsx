@@ -14,7 +14,7 @@ interface UploadFormProps {
 export function UploadForm({ department: propDepartment = 'General', onSuccess, onError }: UploadFormProps) {
   const [file, setFile] = useState<File | null>(null);
   const [department, setDepartment] = useState(propDepartment);
-  
+
   // Load department from user profile
   useEffect(() => {
     try {
@@ -39,8 +39,8 @@ export function UploadForm({ department: propDepartment = 'General', onSuccess, 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      if (!selectedFile.name.endsWith('.xlsx')) {
-        setErrorMessage('Please select an Excel file (.xlsx)');
+      if (!selectedFile.name.endsWith('.xlsx') && !selectedFile.name.endsWith('.csv')) {
+        setErrorMessage('Please select an Excel (.xlsx) or CSV (.csv) file');
         setFile(null);
         return;
       }
@@ -71,7 +71,7 @@ export function UploadForm({ department: propDepartment = 'General', onSuccess, 
 
       // Get token
       const token = localStorage.getItem('faculty_token');
-      
+
       if (!token) {
         throw new Error('Authentication token not found. Please login again.');
       }
@@ -118,13 +118,13 @@ export function UploadForm({ department: propDepartment = 'General', onSuccess, 
       {/* File Input Section */}
       <div className="space-y-3">
         <label className="block text-sm font-bold text-amber-950 tracking-wide">
-          📁 Select Excel File (.xlsx)
+          📁 Select Excel (.xlsx) or CSV (.csv) File
         </label>
         <div className="relative">
           <input
             ref={fileInputRef}
             type="file"
-            accept=".xlsx"
+            accept=".xlsx,.csv"
             onChange={handleFileChange}
             disabled={isUploading}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
@@ -138,7 +138,7 @@ export function UploadForm({ department: propDepartment = 'General', onSuccess, 
             ) : (
               <div className="flex items-center justify-center gap-2">
                 <span className="text-xl">📎</span>
-                <span>Click to select or drag your Excel file</span>
+                <span>Click to select or drag your file</span>
               </div>
             )}
           </div>
@@ -201,7 +201,7 @@ export function UploadForm({ department: propDepartment = 'General', onSuccess, 
 
       {!file && (
         <p className="text-xs text-amber-600 text-center italic">
-          Required: Excel file with supervisor, interested_area, and project_idea columns
+          Required: Excel or CSV file with supervisor, interested_area, and project_idea columns
         </p>
       )}
     </div>

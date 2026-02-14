@@ -17,12 +17,7 @@ interface DepartmentSelectorProps {
 const DEPARTMENTS: { value: Department; label: string }[] = [
   { value: 'CS', label: 'Computer Science' },
   { value: 'SE', label: 'Software Engineering' },
-  { value: 'IT', label: 'Information Technology' },
-  { value: 'AI', label: 'Artificial Intelligence' },
-  { value: 'DS', label: 'Data Science' },
   { value: 'CYS', label: 'Cyber Security' },
-  { value: 'EE', label: 'Electrical Engineering' },
-  { value: 'BBA', label: 'Business Administration' },
   { value: 'General', label: 'General / Interdisciplinary' },
 ];
 
