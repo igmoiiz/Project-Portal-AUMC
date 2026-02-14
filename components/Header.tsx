@@ -42,7 +42,7 @@ export function Header() {
         {/* Full Title Section */}
         <div className="space-y-2 pb-4 border-t border-amber-100 pt-4">
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-amber-950">
-            Air University Multan Campus
+            Air University
           </h2>
           <h3 className="text-lg font-medium text-amber-800">
             Project Ideas Portal
