@@ -29,6 +29,37 @@ export async function fetchProjectsByDepartment(department: Department): Promise
 }
 
 /**
+ * Fetch projects by department and supervisor (professor)
+ */
+export async function fetchProjectsByProfessor(
+  department: Department,
+  supervisor: string
+): Promise<ProjectIdea[]> {
+  try {
+    const params = new URLSearchParams({
+      department,
+      supervisor: supervisor.trim(),
+    });
+    const response = await fetch(`${API_BASE_URL}/projects?${params.toString()}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data: ProjectsResponse = await response.json();
+    
+    if (!data.success) {
+      throw new Error(data.error || 'Failed to fetch projects');
+    }
+    
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching projects by professor:', error);
+    throw error;
+  }
+}
+
+/**
  * Login faculty
  */
 export async function loginFaculty(email: string, password: string): Promise<{ success: boolean; token?: string; user?: any; message?: string }> {

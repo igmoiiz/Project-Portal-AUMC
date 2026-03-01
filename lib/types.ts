@@ -5,6 +5,7 @@ export interface ProjectIdea {
   interested_area: string;
   project_idea: string;
   department: string;
+  details?: string;
 }
 
 // Department type

@@ -1,33 +1,28 @@
 'use client';
 
-import Link from 'next/link';
 import { ProjectIdea } from '@/lib/types';
 import { CopyButton } from './CopyButton';
 import { ValidateButton } from './ValidateButton';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
-interface ProjectRowProps {
+interface ProfessorProjectRowProps {
   project: ProjectIdea;
   index: number;
+  onViewDetails: (project: ProjectIdea) => void;
 }
 
-export function ProjectRow({ project, index }: ProjectRowProps) {
-  const visitHref = `/professors/${encodeURIComponent(project.supervisor)}?department=${encodeURIComponent(project.department)}`;
-
+export function ProfessorProjectRow({
+  project,
+  index,
+  onViewDetails,
+}: ProfessorProjectRowProps) {
   return (
-    <tr className={`hover:bg-amber-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-amber-25'}`}>
-      <td className="px-6 py-4 text-sm font-medium text-amber-950">
-        <div className="flex items-start">
-          <div className="flex-shrink-0 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center mr-3">
-            <span className="text-xs font-bold text-amber-900">👨‍🏫</span>
-          </div>
-          <div>
-            <p className="font-semibold text-amber-950">{project.supervisor}</p>
-            <p className="text-xs text-amber-600 mt-0.5">Faculty Supervisor</p>
-          </div>
-        </div>
-      </td>
+    <tr
+      className={`hover:bg-amber-50 transition-colors duration-150 ${
+        index % 2 === 0 ? 'bg-white' : 'bg-amber-25'
+      }`}
+    >
       <td className="px-6 py-4 text-sm text-amber-900">
         <span className="inline-block bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-xs font-medium border border-amber-300">
           {project.interested_area}
@@ -52,15 +47,13 @@ export function ProjectRow({ project, index }: ProjectRowProps) {
             supervisor={project.supervisor}
           />
           <Button
-            asChild
+            onClick={() => onViewDetails(project)}
             size="sm"
             className="bg-amber-600 hover:bg-amber-700 text-white border-0 font-medium transition-all duration-200 shadow-sm hover:shadow-md"
-            title="View all projects by this professor"
+            title="View project details"
           >
-            <Link href={visitHref} className="inline-flex items-center">
-              <ArrowRight className="w-4 h-4 mr-1.5" />
-              Visit
-            </Link>
+            <FileText className="w-4 h-4 mr-1.5" />
+            View Details
           </Button>
         </div>
       </td>
